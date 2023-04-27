@@ -1,0 +1,171 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type RegisterResponseDTO {
+  id: String!
+  email: String!
+  role: String!
+  creationTime: String!
+  emailVerified: Boolean!
+  isEnabled: Boolean
+}
+
+type UserDto {
+  name: String
+  email: String!
+  uid: String!
+  email_verified: Boolean!
+  phone_number: String
+}
+
+type ResponseDTO {
+  msg: String
+}
+
+type Ingredient {
+  grain_id: String!
+  proportion: String!
+}
+
+type Product {
+  _id: String
+  name: String!
+  description: String
+  price: Float
+  ingredients: [Ingredient!]!
+  imgUrl: String
+}
+
+type StoreResponse {
+  _id: String!
+  address: String!
+  latitude: String!
+  longitude: String!
+  Inventory: [InventoryResponse!]!
+}
+
+type InventoryResponse {
+  grain_id: String!
+  quantity: Float!
+}
+
+type Grain {
+  """Example field (placeholder)"""
+  _id: ID!
+
+  """Example field (placeholder)"""
+  name: String!
+
+  """Example field (placeholder)"""
+  description: String!
+
+  """Example field (placeholder)"""
+  type: String
+
+  """Example field (placeholder)"""
+  price: Int!
+
+  """Example field (placeholder)"""
+  nutrition: String!
+  imgUrl: String
+}
+
+type Query {
+  me: UserDto!
+  getProducts(options: ProductOption!): [Product!]!
+  getProduct(id: String!): Product!
+  getAllStores: [StoreResponse!]!
+  getStore(_id: String!): StoreResponse!
+  grains: [Grain!]!
+  grain(id: String!): Grain!
+}
+
+input ProductOption {
+  limit: Float
+  nutrients: [String!]
+  grains: [String!]
+}
+
+type Mutation {
+  register(createUser: CreateUserInput!): RegisterResponseDTO!
+  verify: ResponseDTO!
+  forgotPassword(email: String!): ResponseDTO!
+  resetPassword(password: String!): ResponseDTO!
+  createProduct(create: CreateProductInput!): Product!
+  updateProduct(update: UpdateProductInput!): Product!
+  deleteProduct(_id: String!): String!
+  createStore(createStoreInput: CreateStoreInput!): StoreResponse!
+  updateStore(updateStoreInput: UpdateStoreInput!): StoreResponse!
+  deleteStore(_id: String!): String!
+  createGrain(createGrainInput: CreateGrainInput!): Grain!
+  updateGrain(updateGrainInput: UpdateGrainInput!): Grain!
+  removeGrain(id: String!): Grain!
+}
+
+input CreateUserInput {
+  name: String!
+  email: String!
+  password: String!
+  phone: String!
+}
+
+input CreateProductInput {
+  name: String!
+  description: String
+  price: Float!
+  ingredients: [IngredientInput!]!
+}
+
+input IngredientInput {
+  grain_id: String!
+  proportion: Float!
+}
+
+input UpdateProductInput {
+  _id: String!
+  body: CreateProductInput!
+}
+
+input CreateStoreInput {
+  address: String!
+  latitude: String!
+  longitude: String!
+  Inventory: [Inventory!]!
+}
+
+input Inventory {
+  grain_id: String!
+  quantity: Float!
+}
+
+input UpdateStoreInput {
+  _id: String!
+  body: UpdateStoreInputBody!
+}
+
+input UpdateStoreInputBody {
+  address: String
+  latitude: String
+  longitude: String
+  Inventory: [Inventory!]
+}
+
+input CreateGrainInput {
+  name: String!
+  type: String
+  description: String!
+  price: Float!
+  nutrition: String!
+  imgUrl: String
+}
+
+input UpdateGrainInput {
+  name: String
+  type: String
+  description: String
+  price: Float
+  nutrition: String
+  imgUrl: String
+  id: ID!
+}
